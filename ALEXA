@@ -1,0 +1,24 @@
+import { HookdeckClient, Hookdeck } from '@hookdeck/sdk';
+
+const hookdeck = new HookdeckClient({
+  token: "YOUR_TOKEN_GOES_HERE"
+});
+
+const connection = await hookdeck.connection.upsert({
+  name: "inbound-example",
+  source: {
+    name: "inbound"
+  },
+  destination: {
+    name: "outbound",
+    url: "https://mock.hookdeck.com"
+  }
+});
+
+console.log("Created or updated Connection. Source URL:", connection.source.url);
+const options = {method: 'GET', headers: {'Content-Type': 'application/json'}};
+
+fetch('https://api.cloudflare.com/client/v4/ips', options)
+  .then(response => response.json())
+  .then(response => console.log(response))
+  .catch(err => console.error(err));
