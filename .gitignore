@@ -80,3 +80,5 @@ lint/tmp/
 # Keystore files
 *.jks
 *.keystore
+
+.fake
